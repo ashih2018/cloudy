@@ -34,6 +34,7 @@ function Cloudy() {
   this.ids = [];
   this.stats = {};
   this.sortedWords = [];
+  this.highlightedWords = [];
   this.id = null;
   this.totalWords = 0;
   this.wordsToDisplay = 100;
@@ -97,23 +98,60 @@ Cloudy.prototype = {
     const largestWord = 4;
 
     const wordsToDisplay = this.sortedWords.length > this.wordsToDisplay ? this.wordsToDisplay : this.sortedWords.length;
+    let css = "";
     for (let i = 0; i < wordsToDisplay; i++) {
       const newWord = document.createElement("li");
+      const wordLink = document.createElement("a");
       const name = randomWords[i][0];
       const numTimes = randomWords[i][1];
-      newWord.innerHTML = `${name}: ${numTimes}`;
-      newWord.classList.add("word");
+
+      wordLink.classList.add("wordLink");
+      wordLink.id = `wordLink-${i}`;
+      wordLink.innerHTML = `${name}: ${numTimes}`;
+      wordLink.onclick = () => this.highlightWords(name);
 
       let size = ((numTimes / maxSeen) * largestWord).toFixed(2);
       size = size >= 1 ? size : 1;
       const color = getRandomColor();
+      css += `#wordLink-${i}:hover{ background: ${color}; color: black }`;
 
       newWord.style = `font-size: ${size}em; color: ${color}`
+      newWord.classList.add("word");
+      
+      newWord.appendChild(wordLink);
       wordList.appendChild(newWord);
     }
+    const style = document.createElement("style");
+    style.appendChild(document.createTextNode(css));
+    document.getElementsByTagName("head")[0].appendChild(style);
 
     cloudContainer.appendChild(wordList);
     parentContainer.append(cloudContainer);
+  },
+
+  replaceWithHighlightedWords: function(selector, word) {
+    console.log('selector :>> ', selector);
+    const element = $(selector);
+    const content = element.html();
+    const index = content.indexOf(word);
+    if (index >= 0) {
+      content = content.substring(0,index) + "<span class='cloudyHighlight'>" + content.substring(index,index+text.length) + "</span>" + content.substring(index + text.length);
+      $(selector).html(content);
+    }
+  },
+
+  highlightWords: function(word) {
+    const highlightIndex = this.highlightedWords.indexOf(word);
+    if (highlightIndex >= 0) {
+
+    } else {
+      this.ids.forEach(id => {
+        replaceWithHighlightedWords(id, word);
+      });
+      this.classNames.forEach(className => {
+        this.replaceWithHighlightedWords(className, word);
+      })
+    }
   },
 
   calculateWordStatistics: function() {
@@ -184,16 +222,20 @@ Cloudy.prototype = {
   }
 }
 
-const wordListStyle = `{ 
-                          list-style: none;
-                          display: flex;
-                          flex-wrap: wrap;
-                          justify-content: center;
-                          max-width: 800px;
-                          margin: auto;
-                        }`
-$(`<style>.wordList ${wordListStyle}</style>`).appendTo('body');
-const wordStyle = `{
-                    padding: 4px;
-                    }` 
-$(`<style>.word ${wordStyle}</style>`).appendTo('body');
+// const wordListStyle = `{ 
+//                           list-style: none;
+//                           display: flex;
+//                           flex-wrap: wrap;
+//                           justify-content: center;
+//                           max-width: 800px;
+//                           margin: auto;
+//                         }`
+// $(`<style>.wordList ${wordListStyle}</style>`).appendTo('body');
+// const wordStyle = `{
+//                     padding: 4px;
+//                     }` 
+// $(`<style>.word ${wordStyle}</style>`).appendTo('body');
+// const wordLink = `{
+//                     cursor: pointer;
+//                   }` 
+// $(`<style>.wordLink ${wordLink}</style>`).appendTo('body');

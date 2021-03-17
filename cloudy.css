@@ -1,7 +1,21 @@
 .wordList { 
-  list-style: none;
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    max-width: 800px;
+    margin: auto;
 }
 
-body {
-  background-color: green;
+.word {
+  padding: 4px;
+}
+
+.wordLink {
+  cursor: pointer;
+  border-radius: 30%;
+}
+
+.cloudyHighlight {
+  background-color: yellow;
 }
