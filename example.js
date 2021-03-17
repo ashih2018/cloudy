@@ -3,4 +3,6 @@
 
 const cloudy = new Cloudy();
 cloudy.addClassName(".text");
-cloudy.generateStats("#cloudyStats");
+cloudy.attachId("#cloudyStats");
+cloudy.generateWordCloud();
+cloudy.generateStats();
