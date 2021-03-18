@@ -30,8 +30,7 @@ function getRandomColor() {
 }
 
 function Cloudy() {
-  this.classNames = [];
-  this.ids = [];
+  this.selectors = [];
   this.stats = {};
   this.sortedWords = [];
   this.highlightedWords = [];
@@ -41,26 +40,14 @@ function Cloudy() {
 }
 
 Cloudy.prototype = {
-  addClassName: function(className) {
-    this.classNames.push(className);
+  addSelector: function(selectors) {
+    this.selectors.push(selectors);
   },
 
-  removeClassName: function(className) {
-    const index = this.classNames.indexOf(className);
+  removeSelector: function(selector) {
+    const index = this.selectors.indexOf(selector);
     if (index > -1) {
-      this.classNames.splice(index, 1);
-    }
-    return index;
-  },
-
-  addId: function(id) {
-    this.ids.push(id);
-  },
-
-  removeId: function(id) {
-    const index = this.ids.indexOf(id);
-    if (index > -1) {
-      this.ids.splice(index, 1);
+      this.selectors.splice(index, 1);
     }
     return index;
   },
@@ -130,34 +117,53 @@ Cloudy.prototype = {
   },
 
   replaceWithHighlightedWords: function(selector, word) {
-    console.log('selector :>> ', selector);
-    const element = $(selector);
-    const content = element.html();
-    const index = content.indexOf(word);
-    if (index >= 0) {
-      content = content.substring(0,index) + "<span class='cloudyHighlight'>" + content.substring(index,index+text.length) + "</span>" + content.substring(index + text.length);
-      $(selector).html(content);
+    const elements = $(selector);
+    for (let i = 0; i < elements.length; i++) {
+      let content = elements[i].innerHTML;
+      const index = content.indexOf(word);
+      if (index >= 0) {
+        let regex = new RegExp(`\\b${word}\\b`, "gi");
+        content = content.replace(regex,`<span class="cloudyHighlight">${word}</span>`);
+        elements[i].innerHTML = content;
+      }
+    }
+  },
+
+  removeHighlightedWords: function(selector, word) {
+    const elements = $(selector);
+    for (let i = 0; i < elements.length; i++) {
+      let content = elements[i].innerHTML;
+      const index = content.indexOf(word);
+      console.log('content :>> ', content);
+      if (index >= 0) {
+        const regexString = `<span class="cloudyHighlight">${word}</span>`;
+        console.log('regexString :>> ', regexString);
+        let regex = new RegExp(`\\b${regexString}\\b`, "gi");
+        content = content.replace(regex, `${word}`);
+        // console.log('content :>> ', content);
+        elements[i].innerHTML = content;
+      }
     }
   },
 
   highlightWords: function(word) {
     const highlightIndex = this.highlightedWords.indexOf(word);
     if (highlightIndex >= 0) {
-
-    } else {
-      this.ids.forEach(id => {
-        replaceWithHighlightedWords(id, word);
-      });
-      this.classNames.forEach(className => {
-        this.replaceWithHighlightedWords(className, word);
+      this.selectors.forEach(selector => {
+        this.removeHighlightedWords(selector, word);
       })
+    } else {
+      this.selectors.forEach(selector => {
+        this.replaceWithHighlightedWords(selector, word);
+      })
+      this.highlightedWords.push(word);
     }
   },
 
   calculateWordStatistics: function() {
     const statistics = {};
-    this.classNames.forEach(className => {
-      const currText = $(className).text();
+    this.selectors.forEach(selector => {
+      const currText = $(selector).text();
       const words = currText.split(" ");
       words.forEach(word => {
         const strippedWord = word.replace(/[^A-Z0-9]+/ig, "");
