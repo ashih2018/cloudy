@@ -120,10 +120,12 @@ Cloudy.prototype = {
     const elements = $(selector);
     for (let i = 0; i < elements.length; i++) {
       let content = elements[i].innerHTML;
-      const index = content.indexOf(word);
+      const index = content.toLowerCase().indexOf(word);
       if (index >= 0) {
-        let regex = new RegExp(`\\b${word}\\b`, "gi");
-        content = content.replace(regex,`<span class="cloudyHighlight">${word}</span>`);
+        let regex = new RegExp("\\b" + word + "\\b", "gi");
+        content = content.replace(regex, function(matched) {
+          return "<span class=\"cloudyHighlight\">" + matched + "</span>";
+        });
         elements[i].innerHTML = content;
       }
     }
@@ -131,18 +133,17 @@ Cloudy.prototype = {
 
   removeHighlightedWords: function(selector, word) {
     const elements = $(selector);
+    const numWords = this.stats[word];
     for (let i = 0; i < elements.length; i++) {
       let content = elements[i].innerHTML;
-      const index = content.indexOf(word);
-      console.log('content :>> ', content);
+      const regexString = `\<span class=\"cloudyHighlight\"\>${word}\<\/span\>`;
+      let index = content.toLowerCase().indexOf(word);
       if (index >= 0) {
-        const regexString = `<span class="cloudyHighlight">${word}</span>`;
-        console.log('regexString :>> ', regexString);
-        let regex = new RegExp(`\\b${regexString}\\b`, "gi");
-        content = content.replace(regex, `${word}`);
-        // console.log('content :>> ', content);
-        elements[i].innerHTML = content;
+        for (let i = 0; i < numWords; i++) {
+          content = content.replace(regexString, word);
+        }
       }
+      elements[i].innerHTML = content;
     }
   },
 
@@ -152,6 +153,7 @@ Cloudy.prototype = {
       this.selectors.forEach(selector => {
         this.removeHighlightedWords(selector, word);
       })
+      this.highlightedWords.splice(highlightIndex, 1);
     } else {
       this.selectors.forEach(selector => {
         this.replaceWithHighlightedWords(selector, word);
@@ -166,7 +168,7 @@ Cloudy.prototype = {
       const currText = $(selector).text();
       const words = currText.split(" ");
       words.forEach(word => {
-        const strippedWord = word.replace(/[^A-Z0-9]+/ig, "");
+        const strippedWord = word.toLowerCase().replace(/[^A-Z0-9]+/ig, "");
         if (strippedWord.length === 0) {
           return;
         }
