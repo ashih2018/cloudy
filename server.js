@@ -14,7 +14,9 @@ const app = express();
 
 
 // static js directory
-app.use("/js", express.static(path.join(__dirname, '/pub/js')))
+app.use("/js", express.static(path.join(__dirname, '/pub/js')));
+
+app.use('/pub', express.static(__dirname + "/pub"));
 
 // load css
 app.get('/cloudy.css', function(req, res) {
@@ -22,10 +24,13 @@ app.get('/cloudy.css', function(req, res) {
 });
 
 // route for root
-app.get('/', (req, res) => {
+app.get('/examples', (req, res) => {
 	res.sendFile(path.join(__dirname, '/pub/examples.html'))
-})
+});
 
+app.get('/', (req, res) => {
+	res.send('<h1>Root Route for cloudy.js!</h1>')
+})
 
 // Express server listening...
 const port = process.env.PORT || 5000
