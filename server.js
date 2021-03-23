@@ -11,16 +11,12 @@ const app = express();
 * Only allow specific parts of our pub directory to be access, rather than giving
 * access to the entire directory.
 */
-
-
-// static js directory
-app.use("/js", express.static(path.join(__dirname, '/pub/js')));
-
-app.use('/pub', express.static(__dirname + "/pub"));
+app.use(express.static(path.join(__dirname, '/pub')))
+app.use('/pub/images', express.static(path.join(__dirname, "/pub/images")));
 
 // load css
 app.get('/cloudy.css', function(req, res) {
-  res.sendFile(__dirname + "/pub/cloudy.css");
+  res.sendFile(path.join(__dirname, "/pub/cloudy.css"));
 });
 
 // route for root
