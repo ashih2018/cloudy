@@ -24,7 +24,7 @@ app.get('/cloudy.css', function(req, res) {
 });
 
 // route for root
-app.get('/examples', (req, res) => {
+app.get('/examples.html', (req, res) => {
 	res.sendFile(path.join(__dirname, '/pub/examples.html'))
 });
 
