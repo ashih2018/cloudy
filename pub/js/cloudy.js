@@ -20,7 +20,8 @@ function shuffle(array) {
   return array;
 }
 
-function getRandomColor() {
+function generateColor() {
+  // generates random hex value
   let result = '#';
   const hex = '0123456789ABCDEF';
   for (let i = 0; i < 6; i++) {
@@ -37,6 +38,7 @@ function Cloudy() {
   this.id = null;
   this.totalWords = 0;
   this.wordsToDisplay = 100;
+  this.bannedWords = new Set();
 }
 
 Cloudy.prototype = {
@@ -56,8 +58,15 @@ Cloudy.prototype = {
     this.id = id;
   },
 
+  updateBannedWords: function (listOfWords) {
+    this.bannedWords = new Set();
+    listOfWords.forEach(word => {
+      this.bannedWords.add(word.toLowerCase());
+    });
+  },
+
   setWordsToDisplay: function(num) {
-    this.wordsToDisplay = num
+    this.wordsToDisplay = num;
   },
 
   generateWordCloud: function() {
@@ -99,7 +108,7 @@ Cloudy.prototype = {
 
       let size = ((numTimes / maxSeen) * largestWord).toFixed(2);
       size = size >= 1 ? size : 1;
-      const color = getRandomColor();
+      const color = generateColor();
       css += `#wordLink-${i}:hover{ background: ${color}; color: black }`;
 
       newWord.style = `font-size: ${size}em; color: ${color}`
@@ -173,6 +182,9 @@ Cloudy.prototype = {
       words.forEach(word => {
         const strippedWord = word.toLowerCase().replace(/[^A-Z0-9]+/ig, "");
         if (strippedWord.length === 0) {
+          return;
+        }
+        if (this.bannedWords.has(strippedWord.toLowerCase())) {
           return;
         }
         if (!(strippedWord in statistics)) {
