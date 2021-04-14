@@ -39,6 +39,7 @@ function Cloudy() {
   this.totalWords = 0;
   this.wordsToDisplay = 100;
   this.bannedWords = new Set();
+  this.color = 1;
 }
 
 Cloudy.prototype = {
@@ -73,13 +74,11 @@ Cloudy.prototype = {
     const id = this.id ? this.id : 'body';
     const parentContainer = $(id);
     const cloudContainer = document.createElement("div");
-    cloudContainer.id = "cloudContainer";
-    cloudContainer.style = "border-style: solid; border-width: 2px; border-color: black";
+    $(cloudContainer).attr("id", "cloudContainer");
     
     const title = document.createElement("h1");
     title.innerHTML = "Your Word Cloud";
-    title.style = `text-align: center;`
-
+    $(title).attr("id", "cloudTitle");
     cloudContainer.appendChild(title);
 
     if (this.sortedWords.length === 0) {
@@ -102,15 +101,15 @@ Cloudy.prototype = {
       const numTimes = randomWords[i][1];
 
       wordLink.classList.add("wordLink");
-      wordLink.id = `wordLink-${i}`;
+      wordLink.id = `cloudyWordLink-${name}`;
       wordLink.innerHTML = `${name}: ${numTimes}`;
       wordLink.onclick = () => this.highlightWords(name);
 
       let size = ((numTimes / maxSeen) * largestWord).toFixed(2);
       size = size >= 1 ? size : 1;
       const color = generateColor();
-      css += `#wordLink-${i}:hover{ background: ${color}; color: black }`;
-
+      // these lines of css needs to be inline as it is dynamic
+      css += `#cloudyWordLink-${name}:hover{ background: ${color}; color: black }`;
       newWord.style = `font-size: ${size}em; color: ${color}`
       newWord.classList.add("word");
       
@@ -127,32 +126,36 @@ Cloudy.prototype = {
 
   replaceWithHighlightedWords: function(selector, word) {
     const elements = $(selector);
+    const currColor = this.color;
     for (let i = 0; i < elements.length; i++) {
       let content = elements[i].innerHTML;
       const index = content.toLowerCase().indexOf(word);
       if (index >= 0) {
         let regex = new RegExp("\\b" + word + "\\b", "gi");
         content = content.replace(regex, function(matched) {
-          return "<span class=\"cloudyHighlight\">" + matched + "</span>";
+          return `<span class=\"cloudyHighlight${currColor}\">${matched}</span>`;
         });
         elements[i].innerHTML = content;
       }
     }
+    this.color = (this.color + 1) % 10;
   },
 
   removeHighlightedWords: function(selector, word) {
     const elements = $(selector);
-    const uppercase = word.substring(0, 1).toUpperCase() + word.substring(1);
     const numWords = this.stats[word];
     for (let i = 0; i < elements.length; i++) {
       let content = elements[i].innerHTML;
-      const regexString = `\<span class=\"cloudyHighlight\"\>${word}\<\/span\>`;
-      const upperRegex = `\<span class=\"cloudyHighlight\"\>${uppercase}\<\/span\>`;
+      const regex = new RegExp(`<span class=\"cloudyHighlight\[0-9]\"\>${word}\<\/span\>`, "gi");
       let index = content.toLowerCase().indexOf(word);
       if (index >= 0) {
         for (let i = 0; i < numWords; i++) {
-          content = content.replace(regexString, word);
-          content = content.replace(upperRegex, uppercase);
+          matched = content.match(regex);
+          matched && matched.forEach(m => {
+            const tagLength = m.length - 7;
+            const selectedWord = m.substring(tagLength - word.length, tagLength);
+            content = content.replace(m, selectedWord);
+          })
         }
       }
       elements[i].innerHTML = content;

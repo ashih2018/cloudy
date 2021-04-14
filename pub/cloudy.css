@@ -33,6 +33,43 @@
   border-radius: 30%;
 }
 
-.cloudyHighlight {
+.cloudyHighlight0 {
   background-color: yellow;
+}
+.cloudyHighlight1 {
+  background-color: cornsilk;
+}
+.cloudyHighlight2 {
+  background-color: aquamarine;
+}
+.cloudyHighlight3 {
+  background-color: aliceblue;
+}
+.cloudyHighlight4 {
+  background-color: lightsalmon;
+}
+.cloudyHighlight5 {
+  background-color: lightgreen;
+}
+.cloudyHighlight6 {
+  background-color: lightcyan;
+}
+.cloudyHighlight7 {
+  background-color: lightskyblue;
+}
+.cloudyHighlight8 {
+  background-color: lightgrey;
+}
+.cloudyHighlight9 {
+  background-color: lightpink;
+}
+
+#cloudContainer {
+  border-style: solid;
+  border-width: 2px;
+  border-color: black;
+}
+
+#cloudTitle {
+  text-align: center;
 }
