@@ -71,6 +71,52 @@ Cloudy.prototype = {
     this.wordsToDisplay = num;
   },
 
+  generateWordLink: function(word, maxSeen, largestWord) {
+    const newWord = document.createElement("li");
+    const wordLink = document.createElement("a");
+    const name = word[0];
+    const numTimes = word[1];
+
+    wordLink.classList.add("wordLink");
+    wordLink.id = `cloudyWordLink-${name}`;
+    wordLink.innerHTML = `${name}: ${numTimes}`;
+    wordLink.onclick = () => this.highlightWords(name);
+
+    let size = ((numTimes / maxSeen) * largestWord).toFixed(2);
+    size = size >= 1 ? size : 1;
+    const color = generateColor();
+    // these lines of css needs to be inline as it is dynamic
+    const css = `#cloudyWordLink-${name}:hover{ background: ${color}; color: black }`;
+    newWord.style = `font-size: ${size}em; color: ${color}`
+    newWord.classList.add("word");
+    
+    newWord.appendChild(wordLink);
+    return [newWord, css];
+  },
+
+  generateWordList: function() {
+    const wordList = document.createElement("ul");
+    wordList.classList.add("wordList");
+    const randomWords = shuffle(this.sortedWords.slice(0, this.wordsToDisplay));
+
+    const maxSeen = this.sortedWords[0][1];
+    const largestWord = 4;
+
+    const wordsToDisplay = this.sortedWords.length > this.wordsToDisplay ? this.wordsToDisplay : this.sortedWords.length;
+    let css = "";
+    for (let i = 0; i < wordsToDisplay; i++) {
+      const currWord = randomWords[i];
+      const result = this.generateWordLink(currWord, maxSeen, largestWord);
+      css += result[1];
+      wordList.appendChild(result[0]);
+    }
+    const style = document.createElement("style");
+    style.appendChild(document.createTextNode(css));
+    document.getElementsByTagName("head")[0].appendChild(style);
+
+    return wordList;
+  },
+
   generateWordCloud: function() {
     const id = this.id ? this.id : 'body';
     const parentContainer = $(id);
@@ -86,40 +132,7 @@ Cloudy.prototype = {
       this.calculateWordStatistics();
     }
     
-    const wordList = document.createElement("ul");
-    wordList.classList.add("wordList");
-    const randomWords = shuffle(this.sortedWords.slice(0, this.wordsToDisplay));
-
-    const maxSeen = this.sortedWords[0][1];
-    const largestWord = 4;
-
-    const wordsToDisplay = this.sortedWords.length > this.wordsToDisplay ? this.wordsToDisplay : this.sortedWords.length;
-    let css = "";
-    for (let i = 0; i < wordsToDisplay; i++) {
-      const newWord = document.createElement("li");
-      const wordLink = document.createElement("a");
-      const name = randomWords[i][0];
-      const numTimes = randomWords[i][1];
-
-      wordLink.classList.add("wordLink");
-      wordLink.id = `cloudyWordLink-${name}`;
-      wordLink.innerHTML = `${name}: ${numTimes}`;
-      wordLink.onclick = () => this.highlightWords(name);
-
-      let size = ((numTimes / maxSeen) * largestWord).toFixed(2);
-      size = size >= 1 ? size : 1;
-      const color = generateColor();
-      // these lines of css needs to be inline as it is dynamic
-      css += `#cloudyWordLink-${name}:hover{ background: ${color}; color: black }`;
-      newWord.style = `font-size: ${size}em; color: ${color}`
-      newWord.classList.add("word");
-      
-      newWord.appendChild(wordLink);
-      wordList.appendChild(newWord);
-    }
-    const style = document.createElement("style");
-    style.appendChild(document.createTextNode(css));
-    document.getElementsByTagName("head")[0].appendChild(style);
+    const wordList = this.generateWordList();
 
     cloudContainer.appendChild(wordList);
     parentContainer.append(cloudContainer);
