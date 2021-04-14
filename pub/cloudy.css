@@ -64,6 +64,10 @@
   background-color: lightpink;
 }
 
+.defaultText {
+  color: black;
+}
+
 #cloudContainer {
   border-style: solid;
   border-width: 2px;

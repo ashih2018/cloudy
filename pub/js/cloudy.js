@@ -40,6 +40,7 @@ function Cloudy() {
   this.wordsToDisplay = 100;
   this.bannedWords = new Set();
   this.color = 1;
+  this.colorMap = {}
 }
 
 Cloudy.prototype = {
@@ -138,6 +139,8 @@ Cloudy.prototype = {
         elements[i].innerHTML = content;
       }
     }
+    $(`#cloudyWordLink-${word}`).addClass(`cloudyHighlight${currColor} defaultText`);
+    this.colorMap[word] = currColor;
     this.color = (this.color + 1) % 10;
   },
 
@@ -160,6 +163,9 @@ Cloudy.prototype = {
       }
       elements[i].innerHTML = content;
     }
+    const currColor = this.colorMap[word];
+    delete this.colorMap[word];
+    $(`#cloudyWordLink-${word}`).removeClass(`cloudyHighlight${currColor} defaultText`);
   },
 
   highlightWords: function(word) {
