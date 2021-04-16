@@ -1,24 +1,9 @@
-.headerContainer {
-  text-align: center;
-  min-height: 100vh;
-  display: table; 
-  width:100%;
-}
 
-.headerContent {
-  display: table-cell;
-  vertical-align: middle;
-}
 
 @keyframes fade {
   from {opacity: 0;}
   to {opacity: 1;}
  }
- 
-.cloudImage {
-  padding-top: 20px;
-  width: 200px;
-}
 
 #cloudyStatsContainer {
   text-align: center;
@@ -51,10 +36,10 @@
 }
 
 .cloudyHighlight0 {
-  background-color: yellow;
+  background-color: cornsilk;
 }
 .cloudyHighlight1 {
-  background-color: cornsilk;
+  background-color: yellow;
 }
 .cloudyHighlight2 {
   background-color: aquamarine;
@@ -95,3 +80,48 @@
 #cloudTitle {
   text-align: center;
 }
+
+.cloudyInput {
+  padding: 4px;
+  font-size: 15px;
+  border-width: 1px;
+  border-color: #CCCCCC;
+  background-color: #FFFFFF;
+  color: #000000;
+  border-style: solid;
+  border-radius: 10px;
+  box-shadow: 0px 0px 5px rgba(66,66,66,.75);
+  text-shadow: 0px 0px 0px rgba(66,66,66,.100);
+}
+.cloudyInput:focus {
+  outline:none;
+}
+
+.cloudySubmit {
+	box-shadow:inset 0px 1px 0px 0px #ffffff;
+	background:linear-gradient(to bottom, #ffffff 5%, #f6f6f6 100%);
+	background-color:#ffffff;
+	border-radius:6px;
+	border:1px solid #dcdcdc;
+	display:inline-block;
+	cursor:pointer;
+	color:#4dc4ff;
+	font-family:Arial;
+	font-size:15px;
+	font-weight:bold;
+	padding:6px 24px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffffff;
+  margin-left: 7px;
+}
+.cloudySubmit:hover {
+	background:linear-gradient(to bottom, #f6f6f6 5%, #ffffff 100%);
+	background-color:#f6f6f6;
+}
+.cloudySubmit:active {
+	position:relative;
+	top:1px;
+}
+
+        
+

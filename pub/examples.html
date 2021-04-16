@@ -9,69 +9,147 @@
     <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script defer type="text/javascript" src="js/cloudy.js"></script>
     <script defer type="text/javascript" src='js/example.js'></script>
-    <link rel="stylesheet" href="./cloudy.css">
+    <script defer type="text/javascript" src='js/tab.js'></script>
+    <link rel="stylesheet" href="./css/examples.css">
+    <link rel="stylesheet" href="./css/general.css">
+    <link rel="stylesheet" href="./css/cloudy.css">
   </head>
 
   <body>
  	
     <!-- The header -->
-    <div>
-      <div class="headerContainer">
-        <div class="headerContent">
-          <h1>
-            Cloudy.js
-          </h1>
+    <div id="examplesBody">
+      <ul class="navBar">
+        <li><a href="./api.html">API Docs</a></li>
+        <li class="selected"><a href="./examples.html">Examples</a></li>
+        <li><a href="./landing.html">Home</a></li>
+        <li class="headerLink"><a href="./landing.html">Cloudy.js</a></li>
+      </ul>
+
+      <div id="examplesContainer">
+        <h1 class="cloudy">Examples</h1>
+
+        <div class="example" id="example1Container">
+          <h2 class="cloudy">Basic Usage</h2>
           <div>
-            A javascript library that generates word clouds and statistics for your HTML elements!
+            This is the basic word cloud generated from the following coronavirus analysis text.
+            By clicking on a word in the cloud, it will be highlighted in the text. This can be useful
+            for highlighting key words such as "coronavirus" or "vaccine" to skip to parts you want to see.
           </div>
-          <img class="cloudImage" src="/pub/images/cloud.png"/>
+          <div id="text1">
+            <h3>Coronavirus Disease Vaccine Analysis</h3>
+            An analysis of the current coronavirus disease in Canada has been conducted. 
+            The vaccines that are currently approved for use in Canada are Pfizer-BioNTech, Moderna, AstraZeneca,
+            COVISHIELD, and Janssen. Janssen is the only vaccine that is given in one dose. 
+            The coronavirus vaccination began in Canada in the week of December 13, 2020.
+            Over 9 million first doses of the vaccine have been administered which is around 20% of the total
+            population, while just under 1 million have received their second dose of the vaccine.
+            We know that one dose of the vaccine has an 80% effectiveness against the coronavirus
+            disease. For more coronavirus vaccine updates, subscribe to our newsletter.  
+          </div>
+          <div id="example1"></div>
+
+          <div id="code1" class="codeContainer">
+            <div class="tab" id="tab1">
+              <button class="tablinks" onclick="openTab(event, '#Javascript', '#code1')">JS</button>
+              <button class="tablinks" onclick="openTab(event, '#HTML', '#code1')">HTML</button>
+            </div>
+            
+            <div id="Javascript" class="tabcontent">
+              <h3>Javascript</h3>
+              <p>London is the capital city of England.</p>
+            </div>
+  
+            <div id="HTML" class="tabcontent">
+              <h3>HTML</h3>
+              <p>Paris is the capital of France.</p> 
+            </div>
+          </div>
+        </div>
+
+        <div class="example" id="example3Container">
+          <h2 class="cloudy">Dynamic Word Cloud Generation</h2>
+          <div>
+            One of the most common usages of word clouds is to be able to be generated dynamically
+            based on user input. Dynamic word clouds can be prepopulated with data.
+          </div>
+          <div id="example2"></div>
+        </div>
+
+        <div class="example" id="example3Container">
+          <h2 class="cloudy">Text Analysis</h2>
+          <div>
+            This is a text analysis generated from a sample student essay.
+            From this analysis, we can see patterns such as the student using words 
+            such as React and learned extremely frequently. After analyzing the results, the student
+            can make edits to their paper accordingly.
+            Because we are generating the analysis within a container, we can style the container separately,
+            for example, let's push our text analysis to the left side.
+          </div>
+          <div id="text3">
+            <h3>CSC309 Course Review</h3>
+            This winter semester, I have decided to take the course CSC309, Programming on the Web.
+            From this course, I learned that web development is extremely difficult! Therefore, I will spend
+            more time this summer learning more about web development and libraries like React. 
+            I also learned about React libraries such as React Bootstrap and more things about React.
+            One thing that I really liked about React was how easy it was to use. I think my future projects 
+            will involve more React over other libraries and frameworks. I also learned about other backend frameworks
+            such as Express.js and how to create a server. Next year I want to learn about Angular and Vue!
+          </div>
+          <div id="example3"></div>
+        </div>
+
+        <div class="example" id="example3Container">
+          <h2 class="cloudy">Custom Usage</h2>
+          <div>
+            Let's analyze the bee-ginning of the bee move script!
+          </div>
+          <div>
+            We will adjust the parameters so that we will only look at the top 10 words and
+            ban common words such as "and", "the", "to", etc. We will also add custom bee colors for the generated words!
+          </div>
+          <div id="text4">
+            <h3 class="beeTitle"> The Bee Movie Script</h3>
+            <div id="beeginning">
+              According to all known laws of aviation, there is no way a bee should be able to fly.
+              Its wings are too small to get its fat little body off the ground.
+              The bee, of course, flies anyway because bees don't care what humans think is impossible.
+              Yellow, black. Yellow, black. Yellow, black. Yellow, black. Ooh, black and yellow! Let's shake it up a little. 
+            </div>
+            <div id="dialogue">
+              Barry! Breakfast is ready! Coming! Hang on a second. 
+              Hello? Barry? Adam? Can you believe this is happening?
+              I can't. I'll pick you up. Looking sharp. Use the stairs. 
+              Your father paid good money for those. Sorry. I'm excited. 
+              Here's the graduate.We're very proud of you, son. 
+              A perfect report card, all B's. Very proud. Ma! I got a thing going here.
+              You got lint on your fuzz. Ow! That's me! Wave to us! We'll be in 
+              row 118,000. Bye! Barry, I told you,stop flying in the house! 
+              Hey, Adam.Hey, Barry. Is that fuzz gel? A little. Special day, 
+              graduation. Never thought I'd make it. Three days grade school,
+              three days high school. Those were awkward. Three days college. 
+              I'm glad I took a day and hitchhiked around the hive. You did come 
+              back different. Hi, Barry. Artie, growing a mustache? Looks good. 
+              Hear about Frankie? Yeah. You going to the funeral? No, I'm not going. 
+              Everybody knows, sting someone, you die. Don't waste it on a squirrel.
+              Such a hothead. I guess he could have just gotten out of the way. 
+              I love this incorporating an amusement park into our day. 
+              That's why we don't need vacations. Boy, quite a bit of pomp... under 
+              the circumstances. Well, Adam, today we are men. We are! Bee-men. Amen! 
+              Hallelujah! Students, faculty, distinguished bees, please welcome 
+              Dean Buzzwell. Welcome, New Hive Oitygraduating class of... ...9:15. 
+              That concludes our ceremonies. And begins your careerat Honex Industries!
+              Will we pick our job today? I heard it's just orientation. Heads up! 
+              Here we go. Keep your hands and antennas inside the tram at all times.
+              Wonder what it'll be like? A little scary. Welcome to Honex, a division 
+              of Honesco and a part of the Hexagon Group. This is it! Wow. Wow.
+            </div>
+          </div>
+          <div id="example4"></div>
         </div>
       </div>
-
-      <h1>Cloudy.js Library Example</h1>
-      <h2 class="text">Heaven Open Seasons Rule Male</h2>
-      <h3 class="text">God Were Can't Make Doesn't Great Beast Under</h3>
-      <p class="text">
-        Of creepeth fifth give one were winged man his heaven so blessed for divided fowl appear us can't deep abundantly 
-        fruit one you'll them whales together land void face waters winged fly won't there without divide together 
-        heaven you sea said to <strong>herb</strong> fish him divided after above cattle life. Second evening dry fowl. Herb. 
-        Them creature creature there moved greater bearing wherein they're lesser forth seasons make which morning and she'd 
-        moveth good beast signs us earth very have open. Spirit Were fifth herb.
-      </p>
-
-      <h3>Dominion Without Earth Beginning Earth So Tree Dominion</h3>
-      <p class="text">
-        Itself divided gathered. Of he, third said tree bearing sea winged two replenish also moveth firmament god fourth years
-        First. There years you man fruit i rule grass saw, midst fifth. <strong>Second</strong> spirit gathering, dry fly seed
-        blessed herb one sea bearing seasons i, to were their saw second fill greater gathering morning creepeth have seed the.
-        There air our first let. Face gathering place saw it were meat won't be seasons that evening behold meat fly over
-        dry lights <em>beast</em> gathering. Cattle bearing blessed fruitful saying. She'd signs created were and of sixth
-        heaven and, to you're fowl to for the lights. Said sea night to creeping His multiply, tree behold waters waters
-        female beast thing Multiply hath moving whales <strong>deep</strong> cattle let dominion. Divide said form earth 
-        beginning brought image were likeness very their creature saw second <em>was</em> our that seed upon. Created 
-        <strong>be</strong> darkness seasons lesser first. Also was shall saw appear. For. Every. <strong>You're</strong>
-        own divided don't thing. Creeping Days divide forth them. Image without. After to. Man day. Seas be seas kind.
-        Deep saw form fill be man great fruitful morning subdue. Rule was from said image so herb beginning earth abundantly
-        air <strong>cattle</strong> day. Above upon kind his lights thing in over i. Open may made firmament lights 
-        <strong>female</strong> can't midst creepeth blessed whales you moving all signs there dominion moved whose. 
-        Beginning. Fly over let appear.
-      </p>
-
-      <p class="text">
-        Life. Said creepeth two beginning <em>rule</em> have <em>day</em> his, image bearing may signs day saw gathering.
-        <strong>Very</strong> multiply, is life given beginning, he so green, gathering living is, creature man fruit 
-        divided spirit, god is subdue great bearing whales you'll rule sixth deep. Own. Seed male days spirit own 
-        <strong>behold</strong> given sixth a tree moveth man us called firmament she'd image. Fill may. Their own 
-        days Seed midst so all beginning creeping to <strong>he</strong> he unto for second meat winged creepeth whose 
-        also saw replenish every fifth signs. Give. Dominion hath. Life appear. <em>The</em> man said i, gathering you air.
-        Stars for us moveth were replenish heaven firmament called. Meat. Female kind had green seed also. <em>Tree</em> 
-        bearing. Wherein rule him. A us gathered. Fly is forth. Life void behold, years created after, female fly earth
-        second two. Earth evening dominion upon blessed yielding set which signs under after deep abundantly their, 
-        moved which gathering. A over set, dry of subdue. Beast great <em>tree</em> replenish fourth. <em>Brought</em> 
-        you place. Third let years Called greater bearing unto place fourth, greater there them a.</p>
+      
     </div>
 
-    <div id="cloudyStats">
-    </div>
   </body>
 </html>

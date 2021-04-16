@@ -1,5 +1,5 @@
 
-
+// utility functions
 function shuffle(array) {
   // from https://stackoverflow.com/questions/2450954/how-to-randomize-shuffle-a-javascript-array
   var currentIndex = array.length, temporaryValue, randomIndex;
@@ -20,23 +20,12 @@ function shuffle(array) {
   return array;
 }
 
-function generateColor() {
-  // generates random hex value
-  let result = '#';
-  const hex = '0123456789ABCDEF';
-  for (let i = 0; i < 6; i++) {
-    result += hex[Math.floor(16 * Math.random())];
-  }
-  return result;
-}
-
 function Cloudy() {
   this.selectors = [];
   this.stats = {};
   this.sortedWords = [];
   this.highlightedWords = [];
   this.dynamicWords = {};
-  this.autoUpdate = false;
   this.id = null;
   this.totalWords = 0;
   this.wordsToDisplay = 100;
@@ -45,34 +34,46 @@ function Cloudy() {
   this.colorMap = {};
   this.title = "Your Word Cloud";
   this.input = null;
+  this.largest = 4;
+  this.colors = [];
 }
 
 Cloudy.prototype = {
-  addSelector: function(selectors) {
-    this.selectors.push(selectors);
-  },
-
-  removeSelector: function(selector) {
-    const index = this.selectors.indexOf(selector);
-    if (index > -1) {
-      this.selectors.splice(index, 1);
-    }
-    return index;
-  },
-
-  attachId: function(id) {
-    this.id = id;
-  },
-
-  addTitle: function(title) {
-    this.title = title;
-  },
-
   updateBannedWords: function (listOfWords) {
     this.bannedWords = new Set();
     listOfWords.forEach(word => {
       this.bannedWords.add(word.toLowerCase());
     });
+  },
+
+  generateColor: function() {
+    const colorRegex = /^#([0-9a-f]{6}|[0-9a-f]{3})$/i;
+    // gets random color
+    while (this.colors.length != 0) {
+      const index = Math.floor(Math.random() * this.colors.length);
+      const currColor = this.colors[index]
+      if (currColor.match(colorRegex)) {
+        return currColor;
+      } else {
+        console.log(`${currColor} is not a valid color.`);
+        this.colors.splice(index, 1);
+      }
+    };
+    // generates random hex value
+    let result = '#';
+    const hex = '0123456789ABCDEF';
+    for (let i = 0; i < 6; i++) {
+      result += hex[Math.floor(16 * Math.random())];
+    }
+    return result;
+  },
+
+  _convertToDom: function(selector) {
+    if (typeof selector == Object && (selector instanceof Element || selector instanceof HTMLDocument)) {
+      return selector;
+    } else {
+      return $(selector);
+    }
   },
 
   setWordsToDisplay: function(num) {
@@ -92,7 +93,8 @@ Cloudy.prototype = {
 
     let size = ((numTimes / maxSeen) * largestWord).toFixed(2);
     size = size >= 1 ? size : 1;
-    const color = generateColor();
+
+    const color = this.generateColor();
     // these lines of css needs to be inline as it is dynamic
     const css = `#cloudyWordLink-${name}:hover{ background: ${color}; color: black }`;
     newWord.style = `font-size: ${size}em; color: ${color}`
@@ -102,19 +104,21 @@ Cloudy.prototype = {
     return [newWord, css];
   },
 
-  generateWordList: function(dynamic) {
+  generateWordList: function(words) {
+    if (words.length == 0) {
+      return;
+    }
+    const maxSeen = words[0][1];
+
     const wordList = document.createElement("ul");
     wordList.id = "cloudyWordList";
-    const randomWords = shuffle(this.sortedWords.slice(0, this.wordsToDisplay));
+    const randomWords = shuffle(words);
 
-    const maxSeen = this.sortedWords[0][1];
-    const largestWord = 4;
-
-    const wordsToDisplay = this.sortedWords.length > this.wordsToDisplay ? this.wordsToDisplay : this.sortedWords.length;
+    const wordsToDisplay = words.length > this.wordsToDisplay ? this.wordsToDisplay : words.length;
     let css = "";
     for (let i = 0; i < wordsToDisplay; i++) {
       const currWord = randomWords[i];
-      const result = this.generateWordLink(currWord, maxSeen, largestWord);
+      const result = this.generateWordLink(currWord, maxSeen, this.largest);
       css += result[1];
       wordList.appendChild(result[0]);
     }
@@ -125,16 +129,38 @@ Cloudy.prototype = {
     return wordList;
   },
 
-  refresh: function() {
-
+  setDynamicWords: function(words) {
+    this.dynamicWords = words;
   },
 
-  
-  generateDynamicWordCloud: function() {
+  autoupdateWords: function(newWord) {
+    const strippedWord = newWord.toLowerCase().replace(/[^A-Z0-9]+/ig, "");
+    if (strippedWord.length === 0) {
+      return;
+    }
+    if (this.bannedWords.has(strippedWord.toLowerCase())) {
+      return;
+    }
+    if (!(strippedWord in this.dynamicWords)) {
+      this.dynamicWords[strippedWord] = 0;
+    }
+    this.dynamicWords[strippedWord]++;
+    this.totalWords++;
+
+    const allWords = [];
+    for (let currWord in this.dynamicWords) {
+      allWords.push([currWord, this.dynamicWords[currWord]])
+    }
+
+    return allWords;
+  },
+
+  generateDynamicWordCloud: function(words) {
     const id = this.id ? this.id : 'body';
     const parentContainer = $(id);
     const cloudContainer = document.createElement("div");
     $(cloudContainer).attr("id", "cloudyContainer");
+
     
     const title = document.createElement("h1");
     title.innerHTML = this.title;
@@ -146,38 +172,37 @@ Cloudy.prototype = {
     inputBox.value = "";
     $(inputBox).attr("id", "cloudyInputBox");
     cloudContainer.appendChild(inputBox);
+    inputBox.classList.add("cloudyInput");
     this.input = inputBox;
     
     const submit = document.createElement("input");
     submit.type = "submit";
     $(submit).attr("id", "cloudyInputBox");
+    submit.classList.add("cloudySubmit");
     cloudContainer.appendChild(submit);
-    const words = this.dynamicWords;
-    const bannedWords= this.bannedWords;
     submit.onclick = () => {
-      console.log('words :>> ', words);
-      console.log('cloudContainer :>> ', cloudContainer);
-      const strippedWord = inputBox.value.toLowerCase().replace(/[^A-Z0-9]+/ig, "");
-      if (strippedWord.length === 0) {
-        return;
+      const allWords = this.autoupdateWords(inputBox.value, cloudContainer);
+      const wordList = this.generateWordList(allWords);
+      if (cloudContainer.childNodes.length > 0) {
+        cloudContainer.removeChild(cloudContainer.childNodes[cloudContainer.childNodes.length -1]);
       }
-      if (bannedWords.has(strippedWord.toLowerCase())) {
-        return;
-      }
-      if (!(strippedWord in words)) {
-        words[strippedWord] = 0;
-      }
-      words[strippedWord]++;
-      this.totalWords++;
+      cloudContainer.appendChild(wordList);
       inputBox.value = "";
-      console.log('clouodContainer.childNodes :>> ', cloudContainer.childNodes);
-      cloudContainer.removeChild(cloudContainer.childNodes[cloudContainer.childNodes.length -1]);
-      const wordLink = this.generateWordList(true);
+    }
 
+    let wordList = document.createElement("ul");
+    wordList.id = "cloudyWordList";
+    
+    if (words) {
+      let results = [];
+      words.forEach(w => {
+        results = this.autoupdateWords(w, cloudContainer, true);
+      });
+      if (results.length > 0) {
+        wordList = this.generateWordList(results);
+      }
     }
     
-    const wordList = document.createElement("ul");
-    wordList.id = "cloudyWordList";
     cloudContainer.appendChild(wordList);
     parentContainer.append(cloudContainer);
   },
@@ -189,7 +214,7 @@ Cloudy.prototype = {
     $(cloudContainer).attr("id", "cloudContainer");
     
     const title = document.createElement("h1");
-    title.innerHTML = "Your Word Cloud";
+    title.innerHTML = this.title;
     $(title).attr("id", "cloudTitle");
     cloudContainer.appendChild(title);
 
@@ -197,14 +222,14 @@ Cloudy.prototype = {
       this.calculateWordStatistics();
     }
     
-    const wordList = this.generateWordList();
+    const wordList = this.generateWordList(this.sortedWords.slice(0, this.wordsToDisplay));
 
     cloudContainer.appendChild(wordList);
     parentContainer.append(cloudContainer);
   },
 
   replaceWithHighlightedWords: function(selector, word) {
-    const elements = $(selector);
+    const elements = this._convertToDom(selector);
     const currColor = this.color;
     for (let i = 0; i < elements.length; i++) {
       let content = elements[i].innerHTML;
@@ -219,11 +244,10 @@ Cloudy.prototype = {
     }
     $(`#cloudyWordLink-${word}`).addClass(`cloudyHighlight${currColor} defaultText`);
     this.colorMap[word] = currColor;
-    this.color = (this.color + 1) % 10;
   },
 
   removeHighlightedWords: function(selector, word) {
-    const elements = $(selector);
+    const elements = this._convertToDom(selector);
     const numWords = this.stats[word];
     for (let i = 0; i < elements.length; i++) {
       let content = elements[i].innerHTML;
@@ -242,6 +266,7 @@ Cloudy.prototype = {
       elements[i].innerHTML = content;
     }
     const currColor = this.colorMap[word];
+    console.log('currColor :>> ', currColor);
     delete this.colorMap[word];
     $(`#cloudyWordLink-${word}`).removeClass(`cloudyHighlight${currColor} defaultText`);
   },
@@ -258,13 +283,14 @@ Cloudy.prototype = {
         this.replaceWithHighlightedWords(selector, word);
       })
       this.highlightedWords.push(word);
+      this.color = (this.color + 1) % 10;
     }
   },
 
   calculateWordStatistics: function() {
     const statistics = {};
     this.selectors.forEach(selector => {
-      const currText = $(selector).text();
+      let currText = this._convertToDom(selector).text();
       const words = currText.split(" ");
       words.forEach(word => {
         const strippedWord = word.toLowerCase().replace(/[^A-Z0-9]+/ig, "");
@@ -283,7 +309,6 @@ Cloudy.prototype = {
       
     });
     this.stats = statistics;
-
     
     const sortedWords = [];
     for (let word in statistics) {
@@ -306,16 +331,19 @@ Cloudy.prototype = {
 
 
     const title = document.createElement("h1");
-    title.innerHTML = "Top 100 Words Found";
+    title.innerHTML = `Top ${this.wordsToDisplay} Words Found`;
     statsContainer.appendChild(title);
 
     if (this.sortedWords.length === 0) {
       this.calculateWordStatistics();
     }
 
+    console.log('this.sortedWords :>> ', this.sortedWords);
+
     const wordList = document.createElement("ul");
     wordList.id = "cloudyStatsList";
-    for (let i = 0; i < this.wordsToDisplay; i++) {
+    const maxLength = this.wordsToDisplay < this.sortedWords.length ? this.wordsToDisplay : this.sortedWords.length;
+    for (let i = 0; i < maxLength; i++) {
       const newWord = document.createElement("li");
       const name = this.sortedWords[i][0];
       const count = this.sortedWords[i][1];

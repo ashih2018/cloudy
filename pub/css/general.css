@@ -1,0 +1,62 @@
+
+@font-face {
+  font-family: headerFont;
+  src: url(./Arista2.0.ttf);
+}
+
+.navBar {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+  background-color: #cceeff;
+  position: -webkit-sticky; /* Safari */
+  position: sticky;
+  top: 0;
+}
+
+.navBar li {
+  float: right;
+}
+
+.navBar li a {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  display: block;
+  color: black;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+.navBar li a:hover {
+  background-color: #d9d9d9;
+}
+
+.headerLink {
+  float: left !important;
+}
+
+.headerLink a {
+  font-family: headerFont !important;
+}
+
+.selected {
+  background-color: #4dc3ff;
+}
+
+.cloudyTitle {
+  font-family: headerFont;
+  font-size: 50px;
+}
+
+.cloudyFont {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+#sectionTitle {
+  font-size: 30px;
+}
+
+.cloudy {
+  color: #4dc3ff;
+}

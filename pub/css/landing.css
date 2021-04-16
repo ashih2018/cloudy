@@ -1,0 +1,64 @@
+
+
+body {
+  overflow: hidden;
+  margin: 0;
+}
+
+
+.headerContainer {
+  text-align: center;
+  min-height: 100vh;
+  display: table; 
+  width:100%;
+}
+
+.headerContent {
+  margin-top: 10%;
+}
+
+.headerButtons {
+  margin-top: 2%;
+}
+
+.headerButton {
+	box-shadow:inset 0px 1px 40px 1px #ffffff;
+	background:linear-gradient(to bottom, #ffffff 5%, #f0f0f0 100%);
+	background-color:#ffffff;
+	border-radius:20px;
+	border:2px solid #e0e0e0;
+	display:inline-block;
+	cursor:pointer;
+	color:#2e2e2e;
+	font-family:Verdana;
+	font-size:15px;
+	font-weight:bold;
+	padding:9px 16px;
+	text-decoration:none;
+	text-shadow:0px 1px 0px #ffffff;
+}
+.headerButton:hover {
+	background:linear-gradient(to bottom, #f0f0f0 5%, #ffffff 100%);
+	background-color:#f0f0f0;
+}
+.headerButton:active {
+	position:relative;
+	top:1px;
+}
+
+#homePage {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  overflow: hidden;
+  /* background-image: url("./images/cloud.jpg");
+  background-repeat: no-repeat;
+  background-size: 100% 100%; */
+}
+
+.cloudyImage {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  z-index: -100;
+}
