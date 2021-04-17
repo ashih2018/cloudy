@@ -1,6 +1,7 @@
 
 (function(global, document, $) {
   function Cloudy(properties = {}) {
+    // Public instance attributes
     this.id = properties.id || null;
     this.title = properties.title || "Your Word Cloud";
     this.selectors = properties.selectors || [];
@@ -86,6 +87,9 @@
 
   Cloudy.prototype = {
     generateDynamicWordCloud: function(words) {
+      /*
+      * Generates a dynamic word cloud prepopulated with words.
+      */
       const parentContainer = $(this.id);
       if (!parentContainer) {
         parentContainer = $("body");
@@ -139,6 +143,9 @@
     },
 
     generateWordCloud: function() {
+      /*
+      * Generates a dynamic word cloud of text in selectors.
+      */
       const parentContainer = $(this.id);
       if (!parentContainer) {
         parentContainer = $("body");
@@ -160,6 +167,9 @@
     },
 
     generateSearch: function() {
+      /*
+      * Generates a search functionality of text in selectors.
+      */
       const parentContainer = $(this.id);
       if (!parentContainer) {
         parentContainer = $("body");
@@ -250,6 +260,9 @@
     },
 
     generateStats: function() {
+      /*
+      * Generates a statistics list of text in selectors.
+      */
       let parentContainer = $(this.id);
       if (!parentContainer) {
         parentContainer = $("body");
@@ -281,6 +294,9 @@
     },
 
     updateProps: function(properties) {
+      /*
+      * Updates valid properties for this Cloudy instance.
+      */
       Object.keys(properties).forEach(key => {
         switch(key.toLowerCase()) {
           case "id":
