@@ -1,17 +1,16 @@
 
 "use strict";
 
-const cloudy1 = new Cloudy();
-const cloudy2 = new Cloudy();
-const cloudy3 = new Cloudy();
-const cloudy4 = new Cloudy();
 
 function examples () {
-  cloudy1.title = "Word Cloud for Coronavirus Vaccine Analysis"
-  cloudy1.id = "#example1";
-  cloudy1.selectors.push("#text1");
+  const cloudy1 = new Cloudy({
+    title: "Word Cloud for Coronavirus Vaccine Analysis",
+    id: "#example1",
+    selectors: ["#text1"]
+  });
   cloudy1.generateWordCloud();
   
+  const cloudy2 = new Cloudy();
   cloudy2.title = "Thoughts of Your Future"
   cloudy2.id = "#example2";
   cloudy2.largest = 2;
@@ -20,12 +19,14 @@ function examples () {
                     "long", "scary", "california", "life"]
   cloudy2.generateDynamicWordCloud(thoughts);
   
+  const cloudy3 = new Cloudy();
   cloudy3.title = "Text Analysis for CSC309 Final Essay"
   cloudy3.id = "#example3";
   cloudy3.selectors.push("#text3");
   cloudy3.updateBannedWords(["the", "a", "of", "this","and", "of", "to"]);
   cloudy3.generateStats();
   
+  const cloudy4 = new Cloudy();
   cloudy4.title = "Word Cloud for Bee Movie Script"
   const properties = {
     id: "#example4",
