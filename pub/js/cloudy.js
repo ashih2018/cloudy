@@ -274,8 +274,10 @@ function shuffle(array) {
 
   Cloudy.prototype = {
     generateDynamicWordCloud: function(words) {
-      const id = this.id ? this.id : 'body';
-      const parentContainer = $(id);
+      const parentContainer = $(this.id);
+      if (!parentContainer) {
+        parentContainer = $("body");
+      }
       const cloudContainer = document.createElement("div");
       $(cloudContainer).attr("id", "cloudyContainer");
 
@@ -325,8 +327,10 @@ function shuffle(array) {
     },
 
     generateWordCloud: function() {
-      const id = this.id ? this.id : 'body';
-      const parentContainer = $(id);
+      const parentContainer = $(this.id);
+      if (!parentContainer) {
+        parentContainer = $("body");
+      }
       const cloudContainer = document.createElement("div");
       $(cloudContainer).attr("id", "cloudContainer");
       
@@ -346,18 +350,25 @@ function shuffle(array) {
 
     updateBannedWords: function (listOfWords) {
       /*
-      * Updates banned words 
+      * Updates banned words.
+      * Accepts listOfWords parameter as either a set or an array.
       */ 
-      this.bannedWords = new Set();
+      if (listOfWords instanceof Set) {
+        this.bannedWords = listOfWords;
+        return;
+      }
+      const banned = new Set()
       listOfWords.forEach(word => {
-        this.bannedWords.add(word.toLowerCase());
+        banned.add(word.toLowerCase());
       });
+      this.bannedWords = banned;
     },
 
     generateStats: function() {
-      const id = this.id ? this.id : 'body';
-      let parentContainer;
-      parentContainer = $(id);
+      let parentContainer = $(this.id);
+      if (!parentContainer) {
+        parentContainer = $("body");
+      }
       const statsContainer = document.createElement("div");
       statsContainer.id = "cloudyStatsContainer";
 
@@ -384,8 +395,34 @@ function shuffle(array) {
       parentContainer.append(statsContainer);
     },
 
-    updateSelectors: function(selectors) {
-      this.selectors = selectors;
+    updateProps: function(properties) {
+      Object.keys(properties).forEach(key => {
+        switch(key.toLowerCase()) {
+          case "id":
+            this.id = properties[key];
+            break;
+          case "title":
+            this.title = properties[key];
+            break;
+          case "selectors":
+            this.selectors = properties[key];
+            break;
+          case "bannedwords":
+            this.updateBannedWords(properties[key]);
+            break;
+          case "wordstodisplay":
+            this.wordsToDisplay = properties[key];
+            break;
+          case "colors":
+            this.colors = properties[key];
+            break;
+          case "largest":
+            this.largest = properties[key];
+            break;
+          default:
+            console.log(`${key} is not a valid property name.`)
+        }
+      })
     }
   }
 
