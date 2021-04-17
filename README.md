@@ -4,6 +4,7 @@ Direct link to documentation: https://cloudyjs.herokuapp.com/api.html
 
 
 ## Getting Started
+You can include the following in the <head> of your HTML document.
 The following scripts are needed for this library.
 ```
 <script defer type="text/javascript" src="/pub/js/cloudy.js"></script>
