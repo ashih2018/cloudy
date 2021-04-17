@@ -23,7 +23,7 @@ function examples () {
   cloudy3.title = "Text Analysis for CSC309 Final Essay"
   cloudy3.id = "#example3";
   cloudy3.selectors.push("#text3");
-  cloudy3.updateBannedWords(["the", "a", "of", "this","and", "of", "to"]);
+  cloudy3.updateBannedWords(["the", "a", "of", "this", "and", "of", "to"]);
   cloudy3.generateStats();
   cloudy3.generateSearch();
   

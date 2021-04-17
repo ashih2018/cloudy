@@ -442,7 +442,7 @@
           elements[i].innerHTML = content;
         }
       }
-      $(`#cloudyWordLink-${word}`).addClass(`cloudyHighlight${currColor} defaultText`);
+      $(this.id).find(`#cloudyWordLink-${word}`).addClass(`cloudyHighlight${currColor} defaultText`);
       this._colorMap[word] = currColor;
     },
 
@@ -502,7 +502,7 @@
       }
       const currColor = this._colorMap[word];
       delete this._colorMap[word];
-      $(`#cloudyWordLink-${word}`).removeClass(`cloudyHighlight${currColor} defaultText`);
+      $(this.id).find(`#cloudyWordLink-${word}`).removeClass(`cloudyHighlight${currColor} defaultText`);
     }
   }
 
