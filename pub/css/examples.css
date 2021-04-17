@@ -1,10 +1,10 @@
 
-/* #example3 { 
-  float: left;
-} */
-
 #example3Container {
   overflow: hidden;
+}
+
+.codeContainer {
+  margin-top: 2%;
 }
 
 .tab {

@@ -109,7 +109,7 @@
       const submit = document.createElement("input");
       submit.type = "submit";
       $(submit).attr("id", "cloudyInputBox");
-      submit.classList.add("cloudySubmit");
+      submit.classList.add("cloudyButton");
       cloudContainer.appendChild(submit);
       submit.onclick = () => {
         const allWords = this._autoupdateWords(inputBox.value);
@@ -144,19 +144,89 @@
         parentContainer = $("body");
       }
       const cloudContainer = document.createElement("div");
-      $(cloudContainer).attr("id", "cloudContainer");
+      $(cloudContainer).attr("id", "cloudyContainer");
       
       const title = document.createElement("h1");
       title.innerHTML = this.title;
       $(title).attr("id", "cloudTitle");
       cloudContainer.appendChild(title);
 
-
       this._calculateWordStatistics();
 
       const wordList = this._generateWordList(this._sortedWords.slice(0, this.wordsToDisplay));
 
       cloudContainer.appendChild(wordList);
+      parentContainer.append(cloudContainer);
+    },
+
+    generateSearch: function() {
+      const parentContainer = $(this.id);
+      if (!parentContainer) {
+        parentContainer = $("body");
+      }
+      const cloudContainer = document.createElement("div");
+      $(cloudContainer).attr("id", "cloudyContainer");
+
+      const inputBox = document.createElement("input");
+      inputBox.type = "text";
+      inputBox.value = "";
+      $(inputBox).attr("id", "cloudyInputBox");
+      cloudContainer.appendChild(inputBox);
+      inputBox.classList.add("cloudyInput");
+      
+      const submit = document.createElement("input");
+      submit.type = "submit";
+      submit.value = "search";
+      submit.classList.add("cloudyButton");
+      cloudContainer.appendChild(submit);
+
+      const clear = document.createElement("input");
+      clear.type = "submit";
+      clear.value = "clear";
+      clear.classList.add("cloudyButton");
+      cloudContainer.appendChild(clear);
+      clear.onclick = () => {
+        const prev = $("#cloudyAnalysis");
+        if (prev) {
+          prev.remove();
+        }
+        if (this._highlightedWords.length > 0) {
+         this._highlightWords(this._highlightedWords[0]);
+        }
+      }
+
+      this._calculateWordStatistics();
+      
+      submit.onclick = () => {
+        if (inputBox.value.trim().length == 0) {
+          return;
+        }
+        if (this._highlightedWords.length > 0) {
+         this._highlightWords(this._highlightedWords[0]);
+        }
+        const prev = $("#cloudyAnalysis");
+        if (prev) {
+          prev.remove();
+        }
+        const stat = this._stats[inputBox.value.toLowerCase()];
+        const analysis = document.createElement("div");
+        analysis.id = "cloudyAnalysis";
+        if (inputBox.value.split(" ").length > 1) {
+          analysis.innerHTML = `Entered word must not have spaces.`;
+          cloudContainer.appendChild(analysis);
+          inputBox.value = "";
+          return;
+        }
+        if (stat) {
+          analysis.innerHTML = `${inputBox.value}: ${stat}`;
+          this._highlightWords(inputBox.value, stay=true);
+        } else {
+          analysis.innerHTML = `${inputBox.value}: Not found in selected text.`;
+        }
+        cloudContainer.appendChild(analysis);
+        inputBox.value = "";
+      }
+
       parentContainer.append(cloudContainer);
     },
 
@@ -333,7 +403,7 @@
       return allWords;
     },
 
-    _highlightWords: function(word) {
+    _highlightWords: function(word, stay=false) {
       /*
       * onClick method set to a word link. 
       * Searches selectors for this word cloud and highlights the clicked word within
@@ -342,6 +412,9 @@
       */
       const highlightIndex = this._highlightedWords.indexOf(word);
       if (highlightIndex >= 0) {
+        if (stay) {
+          return;
+        }
         this.selectors.forEach(selector => {
           this._removeHighlightedWords(selector, word);
         })

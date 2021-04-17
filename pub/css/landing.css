@@ -21,6 +21,7 @@ body {
   margin-top: 2%;
 }
 
+/* button style from https://www.bestcssbuttongenerator.com/#/23 */
 .headerButton {
 	box-shadow:inset 0px 1px 40px 1px #ffffff;
 	background:linear-gradient(to bottom, #ffffff 5%, #f0f0f0 100%);
@@ -51,9 +52,6 @@ body {
   height: 100%;
   position: relative;
   overflow: hidden;
-  /* background-image: url("./images/cloud.jpg");
-  background-repeat: no-repeat;
-  background-size: 100% 100%; */
 }
 
 .cloudyImage {

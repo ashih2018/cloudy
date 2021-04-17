@@ -8,7 +8,7 @@
     
     <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script defer type="text/javascript" src="js/cloudy.js"></script>
-    <script defer type="text/javascript" src='js/example.js'></script>
+    <script defer type="text/javascript" src='js/examples.js'></script>
     <script defer type="text/javascript" src='js/tab.js'></script>
     <link rel="stylesheet" href="./css/examples.css">
     <link rel="stylesheet" href="./css/general.css">
@@ -19,6 +19,7 @@
  	
     <!-- The header -->
     <div id="examplesBody">
+      <!-- NavBar functionality inspired from https://www.w3schools.com/css/css_navbar_horizontal.asp -->
       <ul class="navBar">
         <li><a href="./api.html">API Docs</a></li>
         <li class="selected"><a href="./examples.html">Examples</a></li>
@@ -57,11 +58,12 @@
             
             <div id="javascript" class="tabcontent">
               <code>
-                const cloudy1 = new Cloudy(); <br>
-                cloudy1.title = "Word Cloud for Coronavirus Vaccine Analysis" <br>
-                cloudy1.id = "#example1"; <br>
-                cloudy1.selectors.push("#text1"); <br>
-                cloudy1.generateWordCloud(); <br>
+                const cloudy1 = new Cloudy({<br>
+                  title: "Word Cloud for Coronavirus Vaccine Analysis",<br>
+                  id: "#example1",<br>
+                  selectors: ["#text1"]<br>
+                });<br>
+                cloudy1.generateWordCloud();<br>
               </code>
             </div>
   
@@ -105,7 +107,7 @@
                 cloudy2.id = "#example2"; <br>
                 cloudy2.largest = 2; <br>
                 const thoughts = ["scared", "work", "work", "family", "family", "scared", "cool", "long", "school", "summer", <br>
-                                  "work", "family", "excited", "cool", "family", "work", "long", "scary", "california", "life"] <br>
+                                  "work", "family", "excited", "cool", "family", "work", "long", "scary", "california", "life"]; <br>
                 cloudy2.generateDynamicWordCloud(thoughts); <br>
               </code>
             </div>
@@ -123,10 +125,13 @@
           <div>
             This is a text analysis generated from a sample student essay.
             From this analysis, we can see patterns such as the student using words 
-            such as React and learned extremely frequently. After analyzing the results, the student
-            can make edits to their paper accordingly.
-            Because we are generating the analysis within a container, we can style the container separately,
-            for example, let's push our text analysis to the left side.
+            such as React and about extremely frequently. After analyzing the results, the student
+            can make edits to their essay accordingly.
+            This example also shows that you can call several `generate` methods on one cloudy instance.
+            In this case, we are generating both a statistics list and a text search feature. The statistics list
+            displays the top 50 most frequently used words and their associated percentage of total words used. 
+            The search features allows the user to search for where this word occurs in the given text as well as
+            how often it is used.
           </div>
           <div id="text3">
             <h3>CSC309 Course Review</h3>
@@ -153,6 +158,7 @@
                 cloudy3.selectors.push("#text3"); <br>
                 cloudy3.updateBannedWords(["the", "a", "of", "this","and", "of", "to"]); <br>
                 cloudy3.generateStats(); <br>
+                cloudy3.generateSearch(); <br>
               </code>
             </div>
   
@@ -230,12 +236,15 @@
             <div id="javascript" class="tabcontent">
               <code>
                 const cloudy4 = new Cloudy(); <br>
-                cloudy4.title = "Word Cloud for Bee Movie Script"; <br>
-                cloudy4.id = "#example4"; <br>
-                cloudy4.selectors.push(...[".beeTitle", "#beeginning", $("#dialogue")]); <br>
-                cloudy4.updateBannedWords(["the", "a", "of", "this", "and", "of", "to", "it"]); <br>
-                cloudy4.wordsToDisplay = 20; <br>
-                cloudy4.colors.push(...["#f9c901", "#000000", "#f6e000", "#FFB101", "#985b10", "#6b4701", "#896800"]); <br>
+                const properties = { <br>
+                  title: "Word Cloud for Bee Movie Script", <br>
+                  id: "#example4", <br>
+                  selectors: [".beeTitle", "#beeginning", $("#dialogue")], <br>
+                  bannedWords: ["the", "a", "of", "this", "and", "of", "to", "it"], <br>
+                  wordsToDisplay: 20, <br>
+                  colors: ["#f9c901", "#000000", "#f6e000", "#FFB101", "#985b10", "#6b4701", "#896800"] <br>
+                } <br>
+                cloudy4.updateProps(properties); <br>
                 cloudy4.generateWordCloud(); <br>
               </code>
             </div>

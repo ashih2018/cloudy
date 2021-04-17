@@ -1,5 +1,5 @@
 
-// Tab functionality from https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_tabs
+// Tab functionality inspired from https://www.w3schools.com/howto/tryit.asp?filename=tryhow_js_tabs
 function openTab(evt, langName, id) {
   let i, tabcontent, tablinks;
   const selector = $(id);
