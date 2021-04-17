@@ -26,7 +26,7 @@
         <li class="headerLink"><a href="./landing.html">Cloudy.js</a></li>
       </ul>
 
-      <div id="examplesContainer">
+      <div id="docsContainer">
         <h1 class="cloudy">Examples</h1>
 
         <div class="example" id="example1Container">
@@ -51,29 +51,70 @@
 
           <div id="code1" class="codeContainer">
             <div class="tab" id="tab1">
-              <button class="tablinks" onclick="openTab(event, '#Javascript', '#code1')">JS</button>
-              <button class="tablinks" onclick="openTab(event, '#HTML', '#code1')">HTML</button>
+              <button class="tablinks" onclick="openTab(event, '#javascript', '#code1')">JS</button>
+              <button class="tablinks" onclick="openTab(event, '#html', '#code1')">HTML</button>
             </div>
             
-            <div id="Javascript" class="tabcontent">
-              <h3>Javascript</h3>
-              <p>London is the capital city of England.</p>
+            <div id="javascript" class="tabcontent">
+              <code>
+                const cloudy1 = new Cloudy(); <br>
+                cloudy1.title = "Word Cloud for Coronavirus Vaccine Analysis" <br>
+                cloudy1.id = "#example1"; <br>
+                cloudy1.selectors.push("#text1"); <br>
+                cloudy1.generateWordCloud(); <br>
+              </code>
             </div>
   
-            <div id="HTML" class="tabcontent">
-              <h3>HTML</h3>
-              <p>Paris is the capital of France.</p> 
+            <div id="html" class="tabcontent">
+              <code>
+                &lt;div id="text1"&gt; <br>
+                &lt;h3&gt;Coronavirus Disease Vaccine Analysis&lt;/h3&gt; <br>
+                An analysis of the current coronavirus disease in Canada has been conducted. 
+                The vaccines that are currently approved for use in Canada are Pfizer-BioNTech, Moderna, AstraZeneca,
+                COVISHIELD, and Janssen. Janssen is the only vaccine that is given in one dose. 
+                The coronavirus vaccination began in Canada in the week of December 13, 2020.
+                Over 9 million first doses of the vaccine have been administered which is around 20% of the total
+                population, while just under 1 million have received their second dose of the vaccine.
+                We know that one dose of the vaccine has an 80% effectiveness against the coronavirus
+                disease. For more coronavirus vaccine updates, subscribe to our newsletter.  <br>  
+                &lt;/div&gt; <br>
+                &lt;div id="example1"&gt;&lt;/div&gt; <br>
+              </code>
             </div>
           </div>
         </div>
 
-        <div class="example" id="example3Container">
+        <div class="example" id="example2Container">
           <h2 class="cloudy">Dynamic Word Cloud Generation</h2>
           <div>
             One of the most common usages of word clouds is to be able to be generated dynamically
             based on user input. Dynamic word clouds can be prepopulated with data.
           </div>
           <div id="example2"></div>
+          <div id="code2" class="codeContainer">
+            <div class="tab" id="tab2">
+              <button class="tablinks" onclick="openTab(event, '#javascript', '#code2')">JS</button>
+              <button class="tablinks" onclick="openTab(event, '#html', '#code2')">HTML</button>
+            </div>
+            
+            <div id="javascript" class="tabcontent">
+              <code>
+                const cloudy2 = new Cloudy(); <br>
+                cloudy2.title = "Thoughts of Your Future"; <br>
+                cloudy2.id = "#example2"; <br>
+                cloudy2.largest = 2; <br>
+                const thoughts = ["scared", "work", "work", "family", "family", "scared", "cool", "long", "school", "summer", <br>
+                                  "work", "family", "excited", "cool", "family", "work", "long", "scary", "california", "life"] <br>
+                cloudy2.generateDynamicWordCloud(thoughts); <br>
+              </code>
+            </div>
+  
+            <div id="html" class="tabcontent">
+              <code>
+                &lt;div id="example2"&gt;&lt;/div&gt;
+              </code>
+            </div>
+          </div>
         </div>
 
         <div class="example" id="example3Container">
@@ -97,9 +138,42 @@
             such as Express.js and how to create a server. Next year I want to learn about Angular and Vue!
           </div>
           <div id="example3"></div>
+          <div id="code3" class="codeContainer">
+            <div class="tab" id="tab3">
+              <button class="tablinks" onclick="openTab(event, '#javascript', '#code3')">JS</button>
+              <button class="tablinks" onclick="openTab(event, '#html', '#code3')">HTML</button>
+            </div>
+            
+            <div id="javascript" class="tabcontent">
+              <code>
+                const cloudy3 = new Cloudy(); <br>
+                cloudy3.title = "Text Analysis for CSC309 Final Essay"; <br>
+                cloudy3.id = "#example3"; <br>
+                cloudy3.selectors.push("#text3"); <br>
+                cloudy3.updateBannedWords(["the", "a", "of", "this","and", "of", "to"]); <br>
+                cloudy3.generateStats(); <br>
+              </code>
+            </div>
+  
+            <div id="html" class="tabcontent">
+              <code>
+                &lt;div id="text3"&gt; <br>
+                  &lt;h3&gt;CSC309 Course Review&lt;/h3&gt; <br>
+                  This winter semester, I have decided to take the course CSC309, Programming on the Web.
+                  From this course, I learned that web development is extremely difficult! Therefore, I will spend
+                  more time this summer learning more about web development and libraries like React. 
+                  I also learned about React libraries such as React Bootstrap and more things about React.
+                  One thing that I really liked about React was how easy it was to use. I think my future projects 
+                  will involve more React over other libraries and frameworks. I also learned about other backend frameworks
+                  such as Express.js and how to create a server. Next year I want to learn about Angular and Vue! <br>
+                &lt;/div&gt; <br>
+                &lt;div id="example3"&gt;&lt;/div&gt; <br>
+              </code>
+            </div>
+          </div>
         </div>
 
-        <div class="example" id="example3Container">
+        <div class="example" id="example4Container">
           <h2 class="cloudy">Custom Usage</h2>
           <div>
             Let's analyze the bee-ginning of the bee move script!
@@ -146,6 +220,66 @@
             </div>
           </div>
           <div id="example4"></div>
+          <div id="code4" class="codeContainer">
+            <div class="tab" id="tab4">
+              <button class="tablinks" onclick="openTab(event, '#javascript', '#code4')">JS</button>
+              <button class="tablinks" onclick="openTab(event, '#html', '#code4')">HTML</button>
+            </div>
+            
+            <div id="javascript" class="tabcontent">
+              <code>
+                const cloudy4 = new Cloudy(); <br>
+                cloudy4.title = "Word Cloud for Bee Movie Script"; <br>
+                cloudy4.id = "#example4"; <br>
+                cloudy4.selectors.push(...[".beeTitle", "#beeginning", $("#dialogue")]); <br>
+                cloudy4.updateBannedWords(["the", "a", "of", "this", "and", "of", "to", "it"]); <br>
+                cloudy4.wordsToDisplay = 20; <br>
+                cloudy4.colors.push(...["#f9c901", "#000000", "#f6e000", "#FFB101", "#985b10", "#6b4701", "#896800"]); <br>
+                cloudy4.generateWordCloud(); <br>
+              </code>
+            </div>
+  
+            <div id="html" class="tabcontent">
+              <code>
+                &lt;h3 class="beeTitle"&gt; The Bee Movie Script&lt;/h3&gt; <br>
+                &lt;div id="beeginning"&gt; <br>
+                  According to all known laws of aviation, there is no way a bee should be able to fly.
+                  Its wings are too small to get its fat little body off the ground.
+                  The bee, of course, flies anyway because bees don't care what humans think is impossible.
+                  Yellow, black. Yellow, black. Yellow, black. Yellow, black. Ooh, black and yellow! Let's shake it up a little.  <br>
+                &lt;/div&gt; <br>
+                &lt;div id="dialogue"&gt; <br>
+                  Barry! Breakfast is ready! Coming! Hang on a second. 
+                  Hello? Barry? Adam? Can you believe this is happening?
+                  I can't. I'll pick you up. Looking sharp. Use the stairs. 
+                  Your father paid good money for those. Sorry. I'm excited. 
+                  Here's the graduate.We're very proud of you, son. 
+                  A perfect report card, all B's. Very proud. Ma! I got a thing going here.
+                  You got lint on your fuzz. Ow! That's me! Wave to us! We'll be in 
+                  row 118,000. Bye! Barry, I told you,stop flying in the house! 
+                  Hey, Adam.Hey, Barry. Is that fuzz gel? A little. Special day, 
+                  graduation. Never thought I'd make it. Three days grade school,
+                  three days high school. Those were awkward. Three days college. 
+                  I'm glad I took a day and hitchhiked around the hive. You did come 
+                  back different. Hi, Barry. Artie, growing a mustache? Looks good. 
+                  Hear about Frankie? Yeah. You going to the funeral? No, I'm not going. 
+                  Everybody knows, sting someone, you die. Don't waste it on a squirrel.
+                  Such a hothead. I guess he could have just gotten out of the way. 
+                  I love this incorporating an amusement park into our day. 
+                  That's why we don't need vacations. Boy, quite a bit of pomp... under 
+                  the circumstances. Well, Adam, today we are men. We are! Bee-men. Amen! 
+                  Hallelujah! Students, faculty, distinguished bees, please welcome 
+                  Dean Buzzwell. Welcome, New Hive Oitygraduating class of... ...9:15. 
+                  That concludes our ceremonies. And begins your careerat Honex Industries!
+                  Will we pick our job today? I heard it's just orientation. Heads up! 
+                  Here we go. Keep your hands and antennas inside the tram at all times.
+                  Wonder what it'll be like? A little scary. Welcome to Honex, a division 
+                  of Honesco and a part of the Hexagon Group. This is it! Wow. Wow. <br>
+              &lt;/div&gt; <br>
+              &lt;div id="example4"&gt;&lt;/div&gt; <br>
+              </code>
+            </div>
+          </div>
         </div>
       </div>
       

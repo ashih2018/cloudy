@@ -11,7 +11,6 @@ function openTab(evt, langName, id) {
   for (i = 0; i < tablinks.length; i++) {
     tablinks[i].className = tablinks[i].className.replace(" active", "");
   }
-  console.log('langName :>> ', selector.find(langName));
-  selector.find(langName).style.display = "block";
+  selector.find(langName)[0].style.display = "block";
   evt.currentTarget.className += " active";
 }

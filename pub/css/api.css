@@ -1,0 +1,40 @@
+
+table.apiTable {
+  margin-top: 2%;
+  width: 100%;
+  background-color: #ffffff;
+  border-collapse: collapse;
+  border-width: 2px;
+  border-color: #4dc4ff;
+  border-style: solid;
+  color: #000000;
+}
+
+table.apiTable th {
+  text-align: left;
+}
+
+table.apiTable td, table.apiTable th {
+  border-width: 2px;
+  border-color: #4dc4ff;
+  border-style: solid;
+  padding: 8px;
+}
+
+table.apiTable thead {
+  background-color: #4dc4ff;
+}
+
+.methodName {
+  margin-top: 2%;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.methodDescription {
+  font-size: 20px;
+}
+
+.methodsList {
+  
+}
