@@ -16,16 +16,21 @@ app.use('/pub/images', express.static(path.join(__dirname, "/pub/images")));
 
 // load css
 app.get('/cloudy.css', function(req, res) {
-  res.sendFile(path.join(__dirname, "/pub/cloudy.css"));
+  res.sendFile(path.join(__dirname, "/pub/css/cloudy.css"));
 });
 
-// route for root
+app.use('/css', express.static(path.join(__dirname, 'public')))
+
 app.get('/examples.html', (req, res) => {
 	res.sendFile(path.join(__dirname, '/pub/examples.html'))
 });
 
+app.get('/api.html', (req, res) => {
+	res.sendFile(path.join(__dirname, '/pub/api.html'))
+});
+
 app.get('/', (req, res) => {
-	res.send('<h1>Root Route for cloudy.js!</h1>')
+	res.sendFile(path.join(__dirname, '/pub/landing.html'))
 })
 
 // Express server listening...
