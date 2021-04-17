@@ -24,6 +24,7 @@ You will also need jQuery as an external module.
     bannedWords: ["to"],
     wordsToDisplay: 5,
   });
+  cloudyInstance.generateWordCloud();
 </script>
 
 <div id="sampleText">
@@ -75,6 +76,13 @@ The constructor accepts an optional object of properties with keys being valid p
   Generates a list of statistics of the most frequent <code>wordsToDisplay</code> by analyzing the text of the selectors.
   This will be ordered by most frequently used to least frequently used and display how often the word is used in a percentage
   of number of times used to total number of words in the entirety of the text in the selectors.
+  #### Parameters: None
+  #### Return Value: None
+<br>
+
+`generateSearch()` <br>
+  Generates a search feature by providing an input box for the user to search for a word of the text among the selectors.
+  Each search will display how many times the word is referenced in the selectors as well as highlight the words in the text.<br>
   #### Parameters: None
   #### Return Value: None
 <br>

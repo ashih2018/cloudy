@@ -27,11 +27,11 @@
           <h2 class="cloudy">Getting Started</h2>
           The following scripts are needed for this library. <br>
           <code>
-            &lt;script defer type="text/javascript" src="/pub/js/cloudy.js"&gt;&lt;/script&gt;
+            &lt;script defer type="text/javascript" src="cloudy.js"&gt;&lt;/script&gt;
           </code> <br>
           The following CSS file is needed for this library. <br>
           <code>
-            &lt;link rel="stylesheet" href="/pub/css/cloudy.css"&gt;
+            &lt;link rel="stylesheet" href="cloudy.css"&gt;
           </code> <br>
           You will also need jQuery as an external module.
         </div>
@@ -47,6 +47,8 @@
                 &nbsp;&nbsp;&nbsp;&nbsp;bannedWords: ["to"], <br>
                 &nbsp;&nbsp;&nbsp;&nbsp;wordsToDisplay: 5, <br>
               }); <br>
+              
+            cloudyInstance.generateWordCloud(); <br>
             &lt;/script&gt; <br> <br>
 
             &lt;div id="sampleText"&gt;
@@ -121,6 +123,7 @@
           <code class="methodName">Cloudy(props)</code> <br>
           <div class="methodDescription">
             The constructor accepts an object of properties with keys being valid object properties as described above. An example of initializing a Cloudy instance is shown above.
+            The parameter props accepts an optional object of properties with keys being valid properties for the Cloudy instance.
           </div>
           <br>
 
@@ -150,6 +153,13 @@
             Generates a list of statistics of the most frequent <code>wordsToDisplay</code> by analyzing the text of the selectors.
             This will be ordered by most frequently used to least frequently used and display how often the word is used in a percentage
             of number of times used to total number of words in the entirety of the text in the selectors.
+          </div>
+          <br>
+
+          <code class="methodName">generateSearch()</code> <br>
+          <div class="methodDescription">
+            Generates a search feature by providing an input box for the user to search for a word of the text among the selectors.
+            Each search will display how many times the word is referenced in the selectors as well as highlight the words in the text.
           </div>
           <br>
 

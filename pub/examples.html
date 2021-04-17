@@ -59,9 +59,9 @@
             <div id="javascript" class="tabcontent">
               <code>
                 const cloudy1 = new Cloudy({<br>
-                  title: "Word Cloud for Coronavirus Vaccine Analysis",<br>
-                  id: "#example1",<br>
-                  selectors: ["#text1"]<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;title: "Word Cloud for Coronavirus Vaccine Analysis",<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;id: "#example1",<br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;selectors: ["#text1"]<br>
                 });<br>
                 cloudy1.generateWordCloud();<br>
               </code>
@@ -187,7 +187,8 @@
           </div>
           <div>
             We will adjust the parameters so that we will only look at the top 10 words and
-            ban common words such as "and", "the", "to", etc. We will also add custom bee colors for the generated words!
+            ban common words such as "and", "the", "to", etc. For selectors, we will add an array of a class name,
+            an id, as well as a DOM element. We will also add custom bee colors for the generated words!
           </div>
           <div id="text4">
             <h3 class="beeTitle"> The Bee Movie Script</h3>
@@ -237,12 +238,12 @@
               <code>
                 const cloudy4 = new Cloudy(); <br>
                 const properties = { <br>
-                  title: "Word Cloud for Bee Movie Script", <br>
-                  id: "#example4", <br>
-                  selectors: [".beeTitle", "#beeginning", $("#dialogue")], <br>
-                  bannedWords: ["the", "a", "of", "this", "and", "of", "to", "it"], <br>
-                  wordsToDisplay: 20, <br>
-                  colors: ["#f9c901", "#000000", "#f6e000", "#FFB101", "#985b10", "#6b4701", "#896800"] <br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;title: "Word Cloud for Bee Movie Script", <br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;id: "#example4", <br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;selectors: [".beeTitle", "#beeginning", $("#dialogue")], <br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;bannedWords: ["the", "a", "of", "this", "and", "of", "to", "it"], <br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;wordsToDisplay: 20, <br>
+                  &nbsp;&nbsp;&nbsp;&nbsp;colors: ["#f9c901", "#000000", "#f6e000", "#FFB101", "#985b10", "#6b4701", "#896800"] <br>
                 } <br>
                 cloudy4.updateProps(properties); <br>
                 cloudy4.generateWordCloud(); <br>
