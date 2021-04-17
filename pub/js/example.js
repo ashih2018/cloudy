@@ -10,7 +10,7 @@ function examples () {
   cloudy1.title = "Word Cloud for Coronavirus Vaccine Analysis"
   cloudy1.id = "#example1";
   cloudy1.selectors.push("#text1");
-  // cloudy1.generateWordCloud();
+  cloudy1.generateWordCloud();
   
   cloudy2.title = "Thoughts of Your Future"
   cloudy2.id = "#example2";
