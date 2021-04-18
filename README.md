@@ -95,9 +95,9 @@ The constructor accepts an optional object of properties with keys being valid p
   #### Return Value: None
 <br>
 
-`updateProps(listOfWords)` <br>
+`updateProps(properties)` <br>
   Updates the configurable properties for the Cloudy instance as an object.
   Will `console.log` any invalid property values.
   #### Parameters: 
-  - Properties: An object with the following optional keys: id, title, selectors, bannedWords, wordsToDisplay, colors, largest. Each key corresponds to one of the configurable properties.
+  - properties: An object with the following optional keys: id, title, selectors, bannedWords, wordsToDisplay, colors, largest. Each key corresponds to one of the configurable properties.
   #### Return Value: None
